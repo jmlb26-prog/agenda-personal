@@ -1,0 +1,9 @@
+# --- No se publican en GitHub Pages (datos personales) ---
+datos.json
+agenda_Juanma.json
+*.local.json
+
+# --- Utilidades locales ---
+.vscode/
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,71 @@
+AGENDA PERSONAL
+===============
+
+Aplicación web con post-its por día, prioridades, comentarios fechados,
+calendario escolar de Sevilla (festivos y vacaciones) y guardado local.
+
+
+1. CÓMO ABRIRLA (tres formas)
+-----------------------------
+a) RECOMENDADA: doble clic en  abrir_agenda.bat
+   Arranca un servidor local en el propio PC y abre el navegador en
+   http://localhost:8787/  → lee y escribe datos.json automáticamente.
+   (Cierra la pestaña negra de Windows para detener el servidor.)
+
+b) Abierta ya en el navegador:  http://localhost:8787/
+
+c) Doble clic directo en  index.html
+   El navegador NO deja leer datos.json del disco en este modo; la primera
+   vez aparece un aviso y hay que pulsar "Vincular datos.json" y elegir ese
+   archivo. A partir de ahí cada navegador lo lee y lo guarda solo.
+
+
+2. EN EL MÓVIL (PWA)
+---------------------
+Necesita estar publicada en HTTPS (o localhost) para poder instalarse.
+Opciones gratuitas de publicación:
+  · GitHub Pages  (subir la carpeta a un repositorio)
+  · Netlify  (arrastrar la carpeta en app.netlify.com/drop)
+  · Cualquier hosting con HTTPS
+
+Una vez publicada, en el teléfono:
+  · Android / Chrome: menú ⋮ → "Instalar aplicación" (o botón "📱 Instalar")
+  · iPhone / Safari:  Compartir → "Añadir a pantalla de inicio"
+
+Funciona SIN CONEXIÓN: la primera carga descarga la app y los datos; después
+se abre igual sin cobertura. Los cambios se guardan en el propio teléfono.
+
+
+3. DÓNDE ESTÁN LOS DATOS
+------------------------
+· datos.json      → copia en la carpeta (la "oficial" al compartir la carpeta).
+· Navegador       → copia de trabajo (localStorage / datos en el dispositivo).
+· Al arrancar se usa la copia MÁS RECIENTE; si la local está vacía pero el
+  archivo tiene datos, se recuperan del archivo (con aviso en pantalla).
+
+En el móvil no se puede escribir en la carpeta, así que para pasar los datos
+a otro equipo se usa el menú  "💾 Datos":
+  · "📤 Compartir JSON"  → envía el archivo por WhatsApp, correo, Drive…
+  · "↥ Exportar JSON"    → lo guarda en Descargas
+  · "↧ Importar JSON"    → lo carga desde un archivo
+
+
+4. CAMBIOS EN EL CÓDIGO
+-----------------------
+Si modificas index.html, styles.css o app.js, abre también sw.js y sube
+el número de VERSION (v2 → v3) para que los navegadores descarten la caché.
+
+
+5. FICHEROS
+-----------
+index.html             página principal
+styles.css             estilos
+app.js                 toda la lógica
+datos.json             datos de ejemplo + calendario escolar de Sevilla 2026/2027
+manifest.webmanifest   manifiesto de la PWA
+sw.js                  service worker (trabajo sin conexión)
+icon-*.png, favicon.png, apple-touch-icon.png   iconos
+abrir_agenda.bat       lanza servidor local + navegador
+servidor.ps1           servidor local mínimo (lo usa el .bat)
+generar_iconos.ps1     regenera los iconos si quieres cambiarlos
+LEEME.txt              este archivo

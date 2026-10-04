@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Agenda Personal</title>
+<meta name="description" content="Agenda personal con post-its por día, prioridades, comentarios fechados y calendario escolar de Sevilla (festivos y vacaciones). Funciona sin conexión y se puede instalar en el móvil.">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Agenda">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===================== CABECERA ===================== -->
+<header class="topbar">
+
+  <div class="brand">📔 <span>Agenda&nbsp;Personal</span></div>
+
+  <!-- Navegación por días -->
+  <div class="daynav">
+    <button id="btnPrevDay" class="icon-btn" title="Día anterior" aria-label="Día anterior">‹</button>
+    <input type="date" id="dayPicker" class="day-picker" title="Elegir fecha">
+    <button id="btnNextDay" class="icon-btn" title="Día siguiente" aria-label="Día siguiente">›</button>
+    <button id="btnToday" class="btn btn-ghost">Hoy</button>
+
+    <!-- Calendario mensual -->
+    <div class="cal-wrap">
+      <button id="btnCal" class="btn" aria-haspopup="true" aria-expanded="false">📅 <span id="calBtnLabel">Calendario</span> ▾</button>
+
+      <div class="calpop" id="calPop" hidden>
+        <div class="calpop-head">
+          <button class="icon-btn" id="calPrev" title="Mes anterior">‹</button>
+          <strong id="calTitle">—</strong>
+          <button class="icon-btn" id="calNext" title="Mes siguiente">›</button>
+        </div>
+        <div class="calpop-dow" id="calDow"></div>
+        <div class="calpop-grid" id="calGrid"></div>
+        <div class="calpop-legend">
+          <span class="lg lg-festivo">Festivo</span>
+          <span class="lg lg-vacaciones">Vacaciones</span>
+          <span class="lg lg-finde">Fin de semana</span>
+          <span class="lg lg-lectivo">Lectivo</span>
+        </div>
+        <div class="calpop-foot">
+          <button class="btn btn-sm" id="calToday">Hoy</button>
+          <button class="btn btn-sm" id="calClose">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
+    <span id="dayLabel" class="day-label"></span>
+  </div>
+
+  <!-- Buscador -->
+  <div class="search">
+    <input type="search" id="search" class="search-input" placeholder="Buscar actividad…" autocomplete="off">
+    <div class="search-results" id="searchResults" hidden></div>
+  </div>
+
+  <!-- Acciones -->
+  <div class="actions">
+    <button id="btnNew" class="btn btn-primary">＋ Nueva actividad</button>
+    <button id="btnCalend" class="btn">🗓 Festivos</button>
+    <button id="btnInstall" class="btn btn-install" hidden>📱 Instalar</button>
+
+    <div class="dropdown">
+      <button id="btnData" class="btn" aria-haspopup="true" aria-expanded="false">💾 Datos ▾</button>
+      <div class="dropdown-menu" id="dataMenu" hidden>
+        <button id="btnShare">📤 Compartir JSON (móvil)</button>
+        <hr>
+        <button id="btnVincular">🔗 Vincular datos.json (abrir)</button>
+        <button id="btnCrearJson">🆕 Crear datos.json</button>
+        <hr>
+        <button id="btnExport">↥ Exportar JSON</button>
+        <button id="btnImport">↧ Importar JSON</button>
+        <p class="menu-hint">En el PC se lee <b>datos.json</b> de esta carpeta.
+          En el móvil los datos viven en el propio dispositivo: usa
+          <b>Compartir / Exportar</b> para copiarlos a otro equipo.</p>
+      </div>
+    </div>
+
+    <span id="saveStatus" class="status" title="Estado de guardado">●</span>
+  </div>
+</header>
+
+<!-- ===================== HOJAS DEL DÍA ===================== -->
+<main class="sheets" id="sheets"></main>
+
+<!-- ===================== CAPAS ===================== -->
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+</div>
+
+<div class="ctx-menu" id="ctxMenu" hidden></div>
+<div class="toast-wrap" id="toasts"></div>
+
+<input type="file" id="fileInput" accept="application/json,.json" hidden>
+
+<script src="app.js"></script>
+</body>
+</html>
