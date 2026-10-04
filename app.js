@@ -266,7 +266,23 @@ function scheduleSave(){
 }
 function refresh(){ scheduleSave(); render(); }
 
+/* Último guardado al salir: si queda pendiente el programado de 300 ms
+   (cerrar pestaña, cambiar de app en el móvil…), se ejecuta ya mismo. */
+function flushPendiente(){
+  if (saveTimer === null) return;
+  clearTimeout(saveTimer);
+  saveTimer = null;
+  commit();
+}
+window.addEventListener('pagehide', flushPendiente);
+window.addEventListener('beforeunload', flushPendiente);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') flushPendiente();
+});
+
 function commit(){
+  clearTimeout(saveTimer);              // ya no queda nada pendiente
+  saveTimer = null;
   if (!datosCargados) return;          // no pisar datos.json/local si aún no se han leído
   state.actualizado = new Date().toISOString();
   const json = JSON.stringify(state);
