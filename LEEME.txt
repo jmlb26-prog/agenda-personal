@@ -20,20 +20,28 @@ c) Doble clic directo en  index.html
    archivo. A partir de ahí cada navegador lo lee y lo guarda solo.
 
 
-2. EN EL MÓVIL (PWA)
----------------------
-Necesita estar publicada en HTTPS (o localhost) para poder instalarse.
-Opciones gratuitas de publicación:
-  · GitHub Pages  (subir la carpeta a un repositorio)
-  · Netlify  (arrastrar la carpeta en app.netlify.com/drop)
-  · Cualquier hosting con HTTPS
+2. EN EL MÓVIL (PWA)  ★ PUBLICADA
+----------------------------------
+URL pública (HTTPS, se puede instalar como app):
 
-Una vez publicada, en el teléfono:
+        https://jmlb26-prog.github.io/agenda-personal/
+
+Repositorio (código fuente):
+
+        https://github.com/jmlb26-prog/agenda-personal
+
+En el teléfono, abriendo esa URL:
   · Android / Chrome: menú ⋮ → "Instalar aplicación" (o botón "📱 Instalar")
   · iPhone / Safari:  Compartir → "Añadir a pantalla de inicio"
 
-Funciona SIN CONEXIÓN: la primera carga descarga la app y los datos; después
-se abre igual sin cobertura. Los cambios se guardan en el propio teléfono.
+Funciona SIN CONEXIÓN: la primera carga descarga la app; después se abre
+igual sin cobertura. Los cambios se guardan en el propio teléfono.
+
+AVISO: en la web publicada NO está datos.json (los datos personales no se
+suben). Por eso la primera vez que abras la app en el móvil sale el aviso
+"Arranco sin datos.json…": el calendario de Sevilla ya va incluido en el
+código, pero empiezas sin actividades. Para traer tu agenda al móvil:
+menú "💾 Datos" → "↥ Importar JSON" (o "📤 Compartir JSON" desde el PC).
 
 
 3. DÓNDE ESTÁN LOS DATOS
@@ -50,10 +58,24 @@ a otro equipo se usa el menú  "💾 Datos":
   · "↧ Importar JSON"    → lo carga desde un archivo
 
 
-4. CAMBIOS EN EL CÓDIGO
------------------------
+4. CAMBIOS EN EL CÓDIGO Y PUBLICARLOS
+-------------------------------------
 Si modificas index.html, styles.css o app.js, abre también sw.js y sube
-el número de VERSION (v2 → v3) para que los navegadores descarten la caché.
+el número de VERSION (v3 → v4) para que los navegadores descarten la caché.
+
+Para que el cambio llegue a la web (y a los móviles ya instalados):
+
+   cd agenda-personal
+   git add .
+   git commit -m "Descripción del cambio"
+   git push
+
+GitHub Pages lo recompila en menos de un minuto. Los móviles lo verán
+solos al tener conexión (la red manda y la caché sólo hace de respaldo).
+
+Ten en cuenta que .gitignore deja FUERA del repositorio los datos
+personales:  datos.json  y  agenda_Juanma.json. Tu copia local sigue
+usándolos con normalidad, simplemente no se publican.
 
 
 5. FICHEROS
